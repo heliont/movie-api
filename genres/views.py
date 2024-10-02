@@ -34,8 +34,7 @@ def genre_create_list_view(request):
             {
                 'id': new_genre.id,
                 'name': new_genre.name
-            }, 
-            status_code=201,
+            } # ,status_code=201,
         )
 
 
@@ -57,6 +56,13 @@ def genre_detail_view(request, pk):
             {
                 'id': genre.id,
                 'name': genre.name
-            }
+            },
+            status_code=200,
         )
 
+    elif request.method == 'DELETE':
+        genre.delete()
+        return JsonResponse(
+            { 'message': 'Gênero excluído com sucesso.'}
+            #status_code=204,
+        )
