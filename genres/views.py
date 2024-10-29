@@ -1,7 +1,7 @@
 import json
 from django.http import JsonResponse
 
-# Importando rest framwork
+# Importando restframework
 from rest_framework import generics
 
 # Importando o modelo Genre do app genres
