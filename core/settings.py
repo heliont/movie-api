@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # My Apps
     'genres', # Gêneros
     'actors', # Atores
+    'movies', # Filmes
 ]
 
 MIDDLEWARE = [
