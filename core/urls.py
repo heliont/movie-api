@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Rotas de API padrão
+    path('api/v1/', include('authentication.urls')),
     path('api/v1/', include('genres.urls')),
     path('api/v1/', include('actors.urls')),
     path('api/v1/', include('movies.urls')),
