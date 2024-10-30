@@ -10,6 +10,10 @@ Python: 3.12.2
 Django: 5.1.1
 
 
+Criar uma pasta contrib e arquivo.
+- mkdir contrib
+- dentro da pasta contrib executar: type nul > contrib/env_gen.py
+- executar "python contrib/env_gen.py" para gerar arquivo local .env *ignorado no git
 
 Comando para instalar o DRF:
 
