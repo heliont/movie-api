@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db.models import Avg
 from movies.models import Movie
 
 
@@ -13,21 +14,35 @@ class MovieSerializer(serializers.ModelSerializer):
 
     # Calcula a avaliação do filme
     def get_rate(self, obj):
-        reviews = obj.reviews.all()
+        # aggregate() é uma função de agregação do Django ORM que realiza cálculos em um conjunto de registros, como soma, média, contagem, etc.
+        # Avg('stars') é uma função de agregação específica, que calcula a média dos valores do campo stars em todos os objetos do QuerySet reviews
+        # O resultado de .aggregate(Avg('stars')) é um dicionário contendo o valor médio dos stars
+        
+        rate = obj.reviews.aggregate(Avg('stars'))['stars__avg']
 
-        # Se existem reviews, calcula a média de estrelas
-        if reviews:
-            sum_reviews = 0
-
-            # Soma as estrelas de todos os reviews
-            for review in reviews:
-                sum_reviews += review.stars
-            # Contagem de todas as estrelas de reviews
-            reviews_count = reviews.count()
-            # Calcula a média de estrelas
-            return round(sum_reviews / reviews_count, 1) # Aredondamento de numeros float
+        if rate:
+            return round(rate, 1) # Aredondamento de numeros float
 
         return None
+
+
+        ### Inutilizado, para fins de verificação ou comparação de codigo.
+        ################################################################
+        # reviews = obj.reviews.all()
+
+        # # Se existem reviews, calcula a média de estrelas
+        # if reviews:
+        #     sum_reviews = 0
+
+        #     # Soma as estrelas de todos os reviews
+        #     for review in reviews:
+        #         sum_reviews += review.stars
+        #     # Contagem de todas as estrelas de reviews
+        #     reviews_count = reviews.count()
+        #     # Calcula a média de estrelas
+        #     return round(sum_reviews / reviews_count, 1) # Aredondamento de numeros float
+
+        # return None
 
 
     # Verificação de data minima de filmes
@@ -40,5 +55,5 @@ class MovieSerializer(serializers.ModelSerializer):
     # Verificação de quantidade de caracteres permitidos
     def validate_resume(self, value):
         if len(value) > 200:
-            raise serializers.ValidationError("O resumo não pode ter mais de 2 caracteres.")
+            raise serializers.ValidationError("O resumo não pode ter mais de 200 caracteres.")
         return value
