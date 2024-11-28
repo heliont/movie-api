@@ -3,6 +3,7 @@
 from rest_framework import permissions
 
 
+# Descontinuado, pode ser ignorado
 class GenrePermissionClass(permissions.BasePermission):
 
     def has_permission(self, request, view):
