@@ -3,6 +3,8 @@ Projeto de Api de Filmes, servindo como biblioteca.
 
 Está sendo utilizado o Framework Django, escrito em python.
 
+![alt text](image.png)
+
 
 # Dependências
 
