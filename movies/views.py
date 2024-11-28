@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 # Importando o modelo Movie do app movies
 from .models import Movie
 from reviews.models import Review
-from movies.serializers import MovieSerializer, MovieStatsSerializer
+from movies.serializers import MovieSerializer, MovieListDetailSerializer, MovieStatsSerializer
 # Permissão Global do Django-Admin
 from core.permissions import GlobalDefaultPermissions
 
@@ -16,14 +16,26 @@ from core.permissions import GlobalDefaultPermissions
 class MovieCreateListView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated, GlobalDefaultPermissions)
     queryset = Movie.objects.all()
-    serializer_class = MovieSerializer
+    # serializer_class = MovieSerializer
+
+    # Personalizando o serializer_class (Backend For Frontend e Api Gateway)
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return MovieListDetailSerializer
+        return MovieSerializer
 
 
 # View API | List Detail | Update | Delete
 class MovieRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, GlobalDefaultPermissions)
     queryset = Movie.objects.all()
-    serializer_class = MovieSerializer
+    # serializer_class = MovieSerializer
+
+    # Personalizando o serializer_class (Backend For Frontend e Api Gateway)
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return MovieListDetailSerializer
+        return MovieSerializer
 
 
 # Estatísticas de Movies
