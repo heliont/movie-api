@@ -61,3 +61,5 @@ DATABASES = {
 ```
 
 Realizando esses ajustes na settings.py vai ser usado obrigatoriamente as variaveis criada no .env
+
+
