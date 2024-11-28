@@ -40,3 +40,24 @@ Caso queira utilizar o .env para definir as variaveis de ambiente e deixar o pro
 from decouple import config, Csv
 from dj_database_url import parse as dburl
 ```
+
+2. Localize e atualize a secretkey e database para o codigo abaixo:
+```
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = config('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+# Database
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
+DATABASES = {
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
+}
+```
+
+Realizando esses ajustes na settings.py vai ser usado obrigatoriamente as variaveis criada no .env
