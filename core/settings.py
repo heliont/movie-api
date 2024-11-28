@@ -160,9 +160,9 @@ REST_FRAMEWORK = {
 # Configurações do Simple JWT
 SIMPLE_JWT = {
     # Tempor máximo expirar token de accesso
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=365),
     # Tempor máximo expirar refresh token (renovar token de acesso)
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
 }
 
 
