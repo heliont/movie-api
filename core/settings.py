@@ -14,11 +14,12 @@ import os
 from pathlib import Path
 from datetime import timedelta
 
+# para funcionar arquivo secret key e database
+from decouple import config, Csv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# para funcionar arquivo secret key e database
-from decouple import config, Csv
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -31,7 +32,6 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,16 +43,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework', # API Rest
-    'rest_framework_simplejwt', # JWT
+    # API Rest
+    'rest_framework',
+    # JWT
+    'rest_framework_simplejwt',
 
     # My Apps
-    'authentication', # Autenticação
-    'genres', # Gêneros
-    'actors', # Atores
-    'movies', # Filmes
-    'reviews', # Avaliações
+    'authentication',
+    'genres',
+    'actors',
+    'reviews',
+    'movies',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -161,7 +164,6 @@ SIMPLE_JWT = {
     # Tempor máximo expirar refresh token (renovar token de acesso)
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
-
 
 
 JAZZMIN_SETTINGS = {

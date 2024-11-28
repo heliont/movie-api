@@ -14,18 +14,21 @@ class GlobalDefaultPermissions(permissions.BasePermission):
         # Verifica se o usuário possui a permissão do model e retorna o resultado
         return request.user.has_perm(model_permissions_codename)
 
-
     # Função para Coletar o Method, App, View e retorna na Class Global de permissão
     def __get_model_permissions_codename(self, method, view):
+
         try:
-            model_name = view.queryset.model._meta.model_name # identifica o nome do model
-            app_label =  view.queryset.model._meta.app_label #  identifica o nome do app
-            action = self.__get_action_sufix(method) # identifica o nome do metodo da request
+            # identifica o nome do model
+            model_name = view.queryset.model._meta.model_name
+            #  identifica o nome do app
+            app_label = view.queryset.model._meta.app_label
+            # identifica o nome do metodo da request
+            action = self.__get_action_sufix(method)
+
             return f'{app_label}.{action}_{model_name}'
 
         except AttributeError:
             return None
-
 
     # Função para identificar o metodo da requisição
     def __get_action_sufix(self, method):

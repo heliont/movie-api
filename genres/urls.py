@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import *
+from . import views
 
 
 urlpatterns = [
     # Views API para Gêneros
-    path('genres/', GenreCreateListView.as_view(), name='genre-create-list'),
-    path('genres/<int:pk>/', GenreRetrieveUpdateDestroyView.as_view(), name='genre-detail-view'),
+    path('genres/', views.GenreCreateListView.as_view(), name='genre-create-list'),
+    path('genres/<int:pk>/', views.GenreRetrieveUpdateDestroyView.as_view(), name='genre-detail-view'),
 ]

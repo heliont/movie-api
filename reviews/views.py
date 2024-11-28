@@ -7,6 +7,7 @@ from reviews.serializers import ReviewSerializer
 # Permissão Global do Django-Admin
 from core.permissions import GlobalDefaultPermissions
 
+
 # View API | List | Create
 class ReviewCreateListView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated, GlobalDefaultPermissions)

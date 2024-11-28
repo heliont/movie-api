@@ -19,7 +19,8 @@ from django.urls import path, include
 
 from django.conf.urls.static import static
 from django.conf import settings
-from django.views.static import serve
+# from django.views.static import serve
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,4 +32,4 @@ urlpatterns = [
     path('api/v1/', include('movies.urls')),
     path('api/v1/', include('reviews.urls')),
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

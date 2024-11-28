@@ -10,7 +10,8 @@ class MoviePermissionClass(permissions.BasePermission):
         # A permissão do usuário tem que esta adicionado a view desejada
         # passar no parametro do has_perm('app.view_model')
 
-        if request.method in ['GET', 'OPTIONS', 'HEAD']:  # METODO SEGURO SEM PERMISSÃO DE ALTERAR DADOS
+        # METODO SEGURO SEM PERMISSÃO DE ALTERAR DADOS
+        if request.method in ['GET', 'OPTIONS', 'HEAD']:
             return request.user.has_perm('movies.view_movie')
 
         if request.method == 'POST':

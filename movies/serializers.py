@@ -4,20 +4,19 @@ from movies.models import Movie
 
 
 class MovieSerializer(serializers.ModelSerializer):
-     # atributo read_only seria apenas de leitura, não existindo no banco de dados esse field rate
+    # atributo read_only seria apenas de leitura, não existindo no banco de dados esse field rate
     rate = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Movie
         fields = '__all__'
 
-
     # Calcula a avaliação do filme
     def get_rate(self, obj):
         # aggregate() é uma função de agregação do Django ORM que realiza cálculos em um conjunto de registros, como soma, média, contagem, etc.
         # Avg('stars') é uma função de agregação específica, que calcula a média dos valores do campo stars em todos os objetos do QuerySet reviews
         # O resultado de .aggregate(Avg('stars')) é um dicionário contendo o valor médio dos stars
-        
+
         rate = obj.reviews.aggregate(Avg('stars'))['stars__avg']
 
         if rate:
@@ -25,8 +24,8 @@ class MovieSerializer(serializers.ModelSerializer):
 
         return None
 
-
-        ### Inutilizado, para fins de verificação ou comparação de codigo.
+        '''
+        Inutilizado, para fins de verificação ou comparação de codigo.
         ################################################################
         # reviews = obj.reviews.all()
 
@@ -43,7 +42,7 @@ class MovieSerializer(serializers.ModelSerializer):
         #     return round(sum_reviews / reviews_count, 1) # Aredondamento de numeros float
 
         # return None
-
+        '''
 
     # Verificação de data minima de filmes
     def validate_release_date(self, value):
@@ -51,14 +50,11 @@ class MovieSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("A data de lançamento não pode ser anterior a 1990.")
         return value
 
-
     # Verificação de quantidade de caracteres permitidos
     def validate_resume(self, value):
         if len(value) > 200:
             raise serializers.ValidationError("O resumo não pode ter mais de 200 caracteres.")
         return value
-
-
 
 # Serializer comum sem ter um model especificado
 class MovieStatsSerializer(serializers.Serializer):
