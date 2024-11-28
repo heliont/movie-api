@@ -6,17 +6,18 @@ from rest_framework.permissions import IsAuthenticated
 # Importando o modelo Movie do app movies
 from .models import Movie
 from movies.serializers import MovieSerializer
+from movies.permissions import MoviePermissionClass
 
 
 # View API | List | Create
 class MovieCreateListView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, MoviePermissionClass)
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
 
 
 # View API | List Detail | Update | Delete
 class MovieRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, MoviePermissionClass)
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer

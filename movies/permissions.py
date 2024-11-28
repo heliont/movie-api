@@ -1,9 +1,9 @@
-# File permissions de App Genres
+# File permissions de App Movies
 
 from rest_framework import permissions
 
 
-class GenrePermissionClass(permissions.BasePermission):
+class MoviePermissionClass(permissions.BasePermission):
 
     def has_permission(self, request, view):
         # Lógica da Permissão
@@ -11,15 +11,15 @@ class GenrePermissionClass(permissions.BasePermission):
         # passar no parametro do has_perm('app.view_model')
 
         if request.method in ['GET', 'OPTIONS', 'HEAD']:  # METODO SEGURO SEM PERMISSÃO DE ALTERAR DADOS
-            return request.user.has_perm('genres.view_genre')
+            return request.user.has_perm('movies.view_movie')
 
         if request.method == 'POST':
-            return request.user.has_perm('genres.add_genre')
+            return request.user.has_perm('movies.add_movie')
 
         if request.method in ['PUT', 'PATCH']:
-            return request.user.has_perm('genres.change_genre')
+            return request.user.has_perm('movies.change_movie')
 
         if request.method == 'DELETE':
-            return request.user.has_perm('genres.delete_genre')
+            return request.user.has_perm('movies.delete_movie')
 
         return False
