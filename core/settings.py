@@ -144,6 +144,13 @@ else:
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Para usar exclusivamente na hospedagem
+STATIC_STATUS = config('STATIC_STATUS', default=False, cast=bool)
+
+if STATIC_STATUS:
+    STATIC_ROOT = config('STATIC_ROOT')
+    MEDIA_ROOT = config('MEDIA_ROOT')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
