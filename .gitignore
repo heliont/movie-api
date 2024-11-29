@@ -131,6 +131,7 @@ key.pem
 # mkdocs documentation
 /site
 **/media/**
+**/staticfiles/**
 
 # mypy
 .mypy_cache/
