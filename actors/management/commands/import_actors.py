@@ -25,22 +25,39 @@ class Command(BaseCommand):
         print(file_path)
 
         try:
-            # Leitura do arquivo CSV e inserindo no banco de dados
+            # Leitura do arquivo CSV e inserindo ou atualizando no banco de dados
             with open(file_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
                     name = row['name']
                     birthday = datetime.strptime(row['birthday'], '%Y-%m-%d').date()
                     nationality = row['nationality']
+                    actor_id = row['id']  # Supondo que o CSV tenha um campo 'id'
 
-                    # Exibir o registro que esta sendo executado
-                    self.stdout.write(self.style.NOTICE(f'Processando: {name}'))
+                    # Exibir o registro que está sendo processado
+                    self.stdout.write(self.style.NOTICE(f'Processando: {actor_id} - {name}'))
 
-                    Actor.objects.create(
-                        name=name,
-                        birthday=birthday,
-                        nationality=nationality
-                    )
+                    # Verificar se o ator com o ID já existe
+                    actor = Actor.objects.filter(id=actor_id).first()
+
+                    if actor:
+                        # Se o ator já existe, atualize
+                        actor.name = name
+                        actor.birthday = birthday
+                        actor.nationality = nationality
+                        actor.save()
+                        self.stdout.write(self.style.SUCCESS(f'Ator {actor_id} - {name} atualizado com sucesso.'))
+                    else:
+                        # Caso contrário, crie um novo ator
+                        Actor.objects.create(
+                            # Certifique-se de que o id é único
+                            id=actor_id,
+                            name=name,
+                            birthday=birthday,
+                            nationality=nationality
+                        )
+                        self.stdout.write(self.style.SUCCESS(f'Ator {actor_id} - {name} criado com sucesso.'))
+
                 # Print do resultado
                 self.stdout.write(self.style.SUCCESS(f'Arquivo {file_name} processado com sucesso.'))
 
