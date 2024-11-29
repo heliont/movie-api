@@ -65,3 +65,9 @@ DATABASES = {
 Realizando esses ajustes na settings.py vai ser usado obrigatoriamente as variaveis criada no .env
 
 
+# Importações de Dados via arquivo.CSV
+
+- Model > Actors:
+```
+python manage.py import_actors nome_do_arquivo.csv
+```
