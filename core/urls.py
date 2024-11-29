@@ -41,4 +41,4 @@ urlpatterns = [
 
 # Erros
 handler404 = "core.errors.views.handler404"
-#handler500 = "core.errors.views.handler500"
+handler500 = "core.errors.views.handler500"
